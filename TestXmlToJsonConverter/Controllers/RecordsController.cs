@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TestXmlToJsonConverter.Dtos;
 using TestXmlToJsonConverter.RecordsHandler;
 
 namespace TestXmlToJsonConverter.Controllers
@@ -13,17 +14,17 @@ namespace TestXmlToJsonConverter.Controllers
             _recordsHandler = recordsHandler;
 
         [HttpPost]
-        public IActionResult HandleRecords(string recordsfile)
+        public IActionResult HandleRecords([FromBody]RecordsRequest recordsfile)
         {
             try
             {
-                _recordsHandler.HandleRecords(recordsfile);
-                return Ok(new { message = "Log processing started successfully." });
+                _recordsHandler.HandleRecords(recordsfile.recordsDirectory);
+                return Ok(new { message = "Записи обработаны" });
             }
             catch (Exception ex)
             {
                 {
-                    return StatusCode(500, new { message = $"Error processing logs: {ex.Message}" });
+                    return StatusCode(500, new { message = $"Ошибка при обработке записей {ex.Message}" });
                 }
             }
         }
