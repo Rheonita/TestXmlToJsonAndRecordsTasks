@@ -1,0 +1,6 @@
+@TestXmlToJsonConverter_HostAddress = http://localhost:5089
+
+GET {{TestXmlToJsonConverter_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
